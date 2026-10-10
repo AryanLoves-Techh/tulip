@@ -1,0 +1,14 @@
+{
+  "name": "@ratelimit-guard/core",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ioredis": "^6.0.0"
+  }
+}

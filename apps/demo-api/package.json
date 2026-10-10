@@ -1,0 +1,21 @@
+{
+  "name": "demo-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "@ratelimit-guard/core": "workspace:*",
+    "@ratelimit-guard/express": "workspace:*",
+    "@ratelimit-guard/metrics": "workspace:*",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0",
+    "prom-client": "^15.1.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "uid": "ratelimit-guard",
+  "title": "RateLimit Guard",
+  "schemaVersion": 39,
+  "refresh": "5s",
+  "time": { "from": "now-5m", "to": "now" },
+  "panels": [
+    {
+      "id": 1, "type": "timeseries", "title": "Requests/sec by status code",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "targets": [{ "refId": "A", "legendFormat": "{{status_code}}",
+        "expr": "sum by (status_code) (rate(http_request_duration_seconds_count{route!=\"\"}[15s]))" }]
+    },
+    {
+      "id": 2, "type": "timeseries", "title": "p95 latency (non-429)",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "targets": [{ "refId": "A", "legendFormat": "p95",
+        "expr": "histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{status_code!=\"429\"}[15s])))" }]
+    },
+    {
+      "id": 3, "type": "timeseries", "title": "Backend 5xx/sec",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "targets": [{ "refId": "A", "legendFormat": "5xx",
+        "expr": "sum(rate(http_request_duration_seconds_count{status_code=~\"5..\"}[15s]))" }]
+    },
+    {
+      "id": 4, "type": "timeseries", "title": "Rejections/sec by client",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "targets": [{ "refId": "A", "legendFormat": "{{client}}",
+        "expr": "sum by (client) (rate(rate_limit_requests_total{decision=\"rejected\"}[15s]))" }]
+    }
+  ]
+}

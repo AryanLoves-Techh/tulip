@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --animate-blob: blob 22s ease-in-out infinite;
+  --animate-shimmer: shimmer 6s linear infinite;
+  --animate-dash: dash 1.4s linear infinite;
+
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(70px, -50px) scale(1.15); }
+    66% { transform: translate(-60px, 60px) scale(0.9); }
+  }
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: -20; }
+  }
+}
+
+html { color-scheme: dark; }
+body {
+  background: #050505;
+  color: #ededed;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: rgba(124, 92, 255, 0.35); }

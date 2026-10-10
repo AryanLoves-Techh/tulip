@@ -1,0 +1,13 @@
+{
+  "name": "@ratelimit-guard/metrics",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "dependencies": {
+    "prom-client": "^15.1.3"
+  }
+}
